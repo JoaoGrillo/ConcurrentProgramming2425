@@ -48,6 +48,8 @@ If multiple Apps exist, run a specific one with the command:
 >    ,"com.typesafe.akka" %% "akka-actor" % "2.8.5"
 >    ,"com.typesafe.akka" %% "akka-remote" % "2.8.5"
 >    )
+
 If you are in the SBT shell and you modify the build.sbt you need to reload it:
-    sbt> reload
+    > sbt> reload
+
 Note: If you want to use a more powerful IDE, you can use IntelliJ, start a new project from source files, and point to the built.sbt file. 
