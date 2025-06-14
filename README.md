@@ -31,23 +31,23 @@
 8. Run your program:
     sbt> run
 Note: You can also compile, ∼compile, console, and many other. For example, you can compile and run java from the command line:
-    java -cp ~/.sbt/boot/scala-2.12.12/lib/scala-library.jar:target/scala-2.12/classes/cp.lablessons.lesson1.HelloWorld
+>    java -cp ~/.sbt/boot/scala-2.12.12/lib/scala-library.jar:target/scala-2.12/classes/cp.lablessons.lesson1.HelloWorld
 If multiple Apps exist, run a specific one with the command:
-    sbt> runMain cp.lablessons.lesson1.HelloWorld
+>    sbt> runMain cp.lablessons.lesson1.HelloWorld
 9. Extend the build.sbt with dependencies that we may need during the semester.
-    resolvers ++= Seq(
-    "Sonatype OSS Snapshots" at
-    "https://oss.sonatype.org/content/repositories/snapshots",
-    "Sonatype OSS Releases" at
-    "https://oss.sonatype.org/content/repositories/releases",
-    "Typesafe Repository" at
-    "https://repo.typesafe.com/typesafe/releases/"
-    )
-    libraryDependencies ++= Seq(
-    "commons-io" % "commons-io" % "2.4"
-    ,"com.typesafe.akka" %% "akka-actor" % "2.8.5"
-    ,"com.typesafe.akka" %% "akka-remote" % "2.8.5"
-    )
+>    resolvers ++= Seq(
+>    "Sonatype OSS Snapshots" at
+>    "https://oss.sonatype.org/content/repositories/snapshots",
+>    "Sonatype OSS Releases" at
+>    "https://oss.sonatype.org/content/repositories/releases",
+>    "Typesafe Repository" at
+>    "https://repo.typesafe.com/typesafe/releases/"
+>    )
+>    libraryDependencies ++= Seq(
+>    "commons-io" % "commons-io" % "2.4"
+>    ,"com.typesafe.akka" %% "akka-actor" % "2.8.5"
+>    ,"com.typesafe.akka" %% "akka-remote" % "2.8.5"
+>    )
 If you are in the SBT shell and you modify the build.sbt you need to reload it:
     sbt> reload
 Note: If you want to use a more powerful IDE, you can use IntelliJ, start a new project from source files, and point to the built.sbt file. 
