@@ -1,2 +1,4 @@
-# ConcurrentProgramming2425
-Conteúdo das Aulas Teóricas e Práticas da Cadeira de Programação Concorrente do ano de 2024/2025
+# Programação Concorrente 24/25
+*Neste repositório você encontrará:*
+  - Códigos que auxiliam o aprendizado das Aulas Teóricas
+  - Exercícios resolvidos das Aulas Práticas
