@@ -1,0 +1,56 @@
+4.1.
+
+(1) Hierarquia de atores: 
+AdCountingSystem
+    ├── system
+    └── user
+         ├── AdCounter
+         └── AppMgr
+                ├── MyApp(1)
+                └── MyApp(2)
+
+
+(2) Diagrama de sequência (mensagens):
+    AdCounter        AppMgr         MyApp(1)        MyApp(2)
+   |                   |              |               |
+   | --"start"-->      |              |               |
+   |                   | --"start"--> |               |
+   |                   | --"start"----|-------------> |
+   |                   |              |               |
+   | <-("moreAdds", "Candy Crush", 6)-|               |
+   | <-------------- ("moreAdds", "Candy Crush", 3) --|
+   |              [Thread.sleep(2s)]  |               |
+   | --"bum"--> (ignored)             |               |
+   | --"explode"--> throws RuntimeException           |
+   | <--- ("moreAdds", "Temu", 2) ----|               |
+   | <---------------- ("moreAdds", "Uber Eats", 5) --|
+   |                   |              |               |
+   
+
+(3) Saída esperada no terminal (a ordem pode variar por concorrência):
+    Got 6 more adds from 'Candy Crush' (total: 6)
+    Got 3 more adds from 'Candy Crush' (total: 9)
+    [INFO] dead letters encountered.
+    java.lang.RuntimeException: Exploded.
+    Got 2 more adds from 'Temu' (total: 11)
+    Got 5 more adds from 'Uber Eats' (total: 16)
+
+
+4.2. Problemas a melhorar:
+    O uso da variável global sentAds não é adequado, pois atores não devem partilhar estado diretamente. 
+Isso pode causar condições de corrida, já que sentAds é modificada por instâncias de MyApp, mas lida pelo ator AdCounter sem qualquer sincronização. 
+Com isso, a verificação assert(sentAds >= receivedAds) torna-se pouco confiável, podendo falhar mesmo que o sistema esteja funcionando corretamente, 
+apenas porque sentAds ainda não foi atualizado no momento da leitura.
+    Outro problema é o envio da mensagem "bum" ao AdCounter, que não possui um caso para tratá-la. Como não há um case _ =>, a mensagem será descartada 
+silenciosamente. Seria melhor incluir esse caso para identificar mensagens inesperadas.
+    Por fim, os atores MyApp são criados com new dentro de Props(...). Embora funcione, a abordagem mais recomendada é usar uma factory separada ou 
+Props(classOf[MyApp], id), o que melhora a clareza e facilita a manutenção.
+
+
+5.
+(1) Supervisão de atores no Akka é o mecanismo pelo qual um ator pai lida com falhas dos seus 
+    filhos, definindo políticas de tratamento de exceções através da supervisorStrategy, 
+    como reiniciar (Restart), parar (Stop) ou escalar (Escalate) a falha.
+(2) DeathWatch é o mecanismo que permite a um ator observar outro utilizando 
+    context.watch(ator), sendo notificado com a mensagem Terminated(ator) quando o ator 
+    observado for finalizado, possibilitando assim desligamentos ordenados e reações a falhas.
