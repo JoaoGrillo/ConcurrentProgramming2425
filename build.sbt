@@ -16,3 +16,5 @@ libraryDependencies ++= Seq(
     ,"com.typesafe.akka" %% "akka-actor" % "2.8.5"
     ,"com.typesafe.akka" %% "akka-remote" % "2.8.5"
 )
+
+fork := true
